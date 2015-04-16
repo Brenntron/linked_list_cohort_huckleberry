@@ -1,6 +1,6 @@
 class LinkedListItem
   include Comparable
-  attr_reader   :payload, :next_item
+  attr_accessor :payload, :next_item
 
   def initialize(payload)
     @payload = payload
@@ -21,6 +21,14 @@ class LinkedListItem
 
   def last?
    @next_item.nil?
+  end
+
+  def payload=(item)
+    @payload = item
+  end
+
+  def set(payload)
+    @payload=(payload)
   end
 
   def ===(lli)

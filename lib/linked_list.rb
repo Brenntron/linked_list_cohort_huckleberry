@@ -54,6 +54,10 @@ class LinkedList
     end
   end
 
+  def [](index)
+    get(index)
+  end
+
   def size
     @indexCounter += 1
     return @indexCounter
@@ -64,6 +68,22 @@ class LinkedList
       return @curr.payload
     else
       @curr
+    end
+  end
+
+  def []=(index, item)
+    getPayload(index).set(item)
+  end
+
+  def delete(index)
+    if index < 0 || index > @indexCounter
+      raise IndexError
+    elsif index == @indexCounter
+      @curr = @curr.next
+    else
+      index.times do |number|
+        next
+      end
     end
   end
 

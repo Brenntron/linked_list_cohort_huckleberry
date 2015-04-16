@@ -20,7 +20,7 @@ end
 # <YOUR CODE GOES HERE>
 
 print "* -> "
-payloads.size.times do |i|
+ll.size.times do |i|
 print "#{ll.get(i).inspect} -> "
 end
 print "nil"
