@@ -1,6 +1,8 @@
 require_relative 'linked_list_item'
 
 class LinkedList
+  attr_reader :first
+  attr_accessor :indexCounter
 
   def initialize(*payload)
     if payload[0]

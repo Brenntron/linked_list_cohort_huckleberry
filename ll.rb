@@ -11,13 +11,16 @@ ll = LinkedList.new
 #
 # <YOUR CODE GOES HERE>
 
-ll.push(payloads)
+payloads.each do |payload|
+  ll.push payload
+end
 
 # Then, print it out
 #
 # <YOUR CODE GOES HERE>
-if payloads.size >= 1
-  print "* -> #{payloads.map(&:inspect).join(" -> ")} -> nil"
-else
-  print "* -> #{payloads.map(&:inspect).join(" -> ")}nil"
+
+print "* -> "
+payloads.size.times do |i|
+print "#{ll.get(i).inspect} -> "
 end
+print "nil"
