@@ -15,7 +15,7 @@ class LinkedListItem
   end
 
   def next_item=(lli)
-    raise ArgumentError, "Can't set next_item to self" if self == lli
+    raise ArgumentError, "Can't set next_item to self" if self === lli
     @next_item = lli
   end
 

@@ -38,8 +38,7 @@ class LinkedList
   def getPayload(index)
     payloadLocation = @first
     index.times do |number|
-      nextItem = payloadLocation.next_item
-      payloadLocation = nextItem
+      payloadLocation = payloadLocation.next_item
     end
     return payloadLocation
   end
@@ -60,14 +59,11 @@ class LinkedList
 
   def size
     @indexCounter += 1
-    return @indexCounter
   end
 
   def last
-    if @curr
-      return @curr.payload
-    else
-      @curr
+    unless @curr.nil?
+      @curr.payload
     end
   end
 
@@ -75,35 +71,55 @@ class LinkedList
     getPayload(index).set(item)
   end
 
-  def delete(index)
-    if index < 0 || index > @indexCounter
-      raise IndexError
-    elsif index == @indexCounter
-      @curr = @curr.next
-    else
+  def get_iteration(index)
+    iteration = @first
       index.times do |number|
-        next
+        iteration = iteration.next_item
       end
+      return iteration
+  end
+
+  def delete(index)
+    if index > @indexCounter
+      raise IndexError
+    elsif index > 0
+      get_iteration(index-1).next_item = get_iteration(index+1)
+    else
+      @first = @first.next_item
     end
+    @indexCounter -= 1
   end
 
   def to_s
     if @curr
       iteration = 0
       str       = ""
-      itemCount = @first
+      item = @first
       while iteration <= @indexCounter
         if iteration == @indexCounter
-          str << itemCount.payload.to_s
+          str << item.payload.to_s
         else
-          str << itemCount.payload.to_s + ", "
-          itemCount = itemCount.next_item
+          str << item.payload.to_s + ", "
+          item = item.next_item
         end
         iteration += 1
       end
       return "| #{str} |"
     else
       return "| |"
+    end
+  end
+
+  def index(payload)
+    current = @first
+    counter = 0
+    while counter <= @indexCounter
+      if current.payload.to_s == payload
+        return counter
+      else
+        counter += 1
+        current = current.next_item
+      end
     end
   end
 end
