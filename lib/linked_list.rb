@@ -7,19 +7,19 @@ class LinkedList
   def initialize(*payload)
     if payload[0]
       lli = LinkedListItem.new(payload[0])
-      @curr  = lli
+      @last  = lli
       @first = lli
       @indexCounter = 0
       number = @indexCounter + 1
       while payload[number]
         llin = LinkedListItem.new(payload[number])
-        @curr.next_item = llin
-        @curr = @curr.next_item
+        @last.next_item = llin
+        @last = @last.next_item
         number += 1
         @indexCounter += 1
       end
     else
-      @curr = nil
+      @last = nil
       @indexCounter = -1
     end
   end
@@ -27,12 +27,12 @@ class LinkedList
   def push(payload)
     @indexCounter += 1
     lli = LinkedListItem.new(payload)
-    if @curr != nil
-      @curr.next_item = lli
+    if @last != nil
+      @last.next_item = lli
     else
       @first = lli
     end
-    @curr = lli
+    @last = lli
   end
 
   def getPayload(index)
@@ -47,7 +47,7 @@ class LinkedList
     if index < 0 || index > @indexCounter
       raise IndexError
     elsif index == @indexCounter
-      return @curr.payload
+      return @last.payload
     else
       return getPayload(index).payload
     end
@@ -62,8 +62,8 @@ class LinkedList
   end
 
   def last
-    unless @curr.nil?
-      @curr.payload
+    unless @last.nil?
+      @last.payload
     end
   end
 
@@ -91,7 +91,7 @@ class LinkedList
   end
 
   def to_s
-    if @curr
+    if @last
       iteration = 0
       str       = ""
       item = @first
@@ -121,5 +121,9 @@ class LinkedList
         current = current.next_item
       end
     end
+  end
+
+  def sorted?
+    
   end
 end
