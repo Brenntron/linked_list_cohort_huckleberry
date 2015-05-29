@@ -7,27 +7,27 @@ class LinkedList
   def initialize(*payload)
     if payload[0]
       lli = LinkedListItem.new(payload[0])
-      @last  = lli
-      @first = lli
+      @last         = lli
+      @first        = lli
       @indexCounter = 0
-      number = @indexCounter + 1
+      number        = @indexCounter + 1
       while payload[number]
         llin = LinkedListItem.new(payload[number])
         @last.next_item = llin
-        @last = @last.next_item
-        number += 1
-        @indexCounter += 1
+        @last           = @last.next_item
+        number         += 1
+        @indexCounter  += 1
       end
     else
-      @last = nil
+      @last         = nil
       @indexCounter = -1
     end
   end
 
   def push(payload)
     @indexCounter += 1
-    lli = LinkedListItem.new(payload)
-    if @last != nil
+    lli            = LinkedListItem.new(payload)
+    if @last         != nil
       @last.next_item = lli
     else
       @first = lli
@@ -71,19 +71,11 @@ class LinkedList
     getPayload(index).set(item)
   end
 
-  def get_iteration(index)
-    iteration = @first
-      index.times do |number|
-        iteration = iteration.next_item
-      end
-      return iteration
-  end
-
   def delete(index)
     if index > @indexCounter
       raise IndexError
     elsif index > 0
-      get_iteration(index-1).next_item = get_iteration(index+1)
+      getPayload(index-1).next_item = getPayload(index+1)
     else
       @first = @first.next_item
     end
@@ -94,7 +86,7 @@ class LinkedList
     if @last
       iteration = 0
       str       = ""
-      item = @first
+      item      = @first
       while iteration <= @indexCounter
         if iteration == @indexCounter
           str << item.payload.to_s
@@ -118,12 +110,32 @@ class LinkedList
         return counter
       else
         counter += 1
-        current = current.next_item
+        current  = current.next_item
       end
     end
   end
 
   def sorted?
-    
+    iteration = 0
+    item      = @first
+    if @indexCounter <= 0
+     return true
+    else
+      while iteration <= @indexCounter
+        if iteration == @indexCounter
+          return true
+        elsif item.payload.to_s > item.next_item.payload.to_s &&
+          item.payload.class.to_s == item.next_item.payload.class.to_s
+          return false
+        elsif item.payload.class.to_s != item.next_item.payload.class.to_s &&
+          item.payload.class.to_s > item.next_item.payload.class.to_s
+          return false
+        else
+          iteration += 1
+          item = item.next_item
+        end
+      end
+    end
+
   end
 end
